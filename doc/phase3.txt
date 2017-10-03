@@ -1,0 +1,227 @@
+CREATE TABLE colleges (
+    id SERIAL,
+    state TEXT,
+    name TEXT,
+    city TEXT,
+    zipcode TEXT,
+    insturl TEXT,
+    alias TEXT,
+    in_state_tuition INT,
+    out_state_tuition INT,
+    adm_rate FLOAT8,
+    inst_type INT,
+    undergrads INT,
+
+    hist_black INT,
+    pred_black INT,
+    al_haw_nat INT,
+    tribal INT,
+    aa_na_pi INT,
+    hisp INT,
+    na_nontribal INT,
+    men_only INT,
+    women_only INT,
+
+    sat_r_mid INT,
+    sat_m_mid INT,
+    sat_w_mid INT,
+    sat_avg INT,
+    act_avg INT,
+    act_en_mid INT,
+    act_m_mid INT,
+    act_w_mid INT,
+
+    pct_white FLOAT8,
+    pct_black FLOAT8,
+    pct_hisp FLOAT8,
+    pct_asian FLOAT8,
+    pct_ai_an FLOAT8,
+    pct_nh_pi FLOAT8,
+    pct_two_or_more FLOAT8,
+    pct_international FLOAT8,
+    pct_unkwn FLOAT8,
+
+    median_debt FLOAT8,
+    median_grad_debt FLOAT8,
+    median_withdraw_debt FLOAT8,
+    median_female_debt FLOAT8,
+    median_male_debt FLOAT8,
+    median_first_gen_debt FLOAT8,
+    median_non_first_gen_debt FLOAT8,
+    fafsa_apps FLOAT8,
+
+    completion_fouryear FLOAT8,
+    completion_lessfour FLOAT8,
+    transfer_fouryear FLOAT8,
+    transfer_lessfour FLOAT8,
+
+    pct_men FLOAT8,
+    pct_women FLOAT8,
+
+    PRIMARY KEY(id)
+);
+
+SYNOPSIS: Gets a list of all colleges, with the specificed id.
+
+QUERY (GET): /colleges/<college_id>
+
+RESPONSE: a list of dictionaries, each of which describes one college with keys 'state', 'name', e.t.c.
+
+EXAMPLE: http:/collegesearch.com/colleges/10319
+
+[{"insturl": "www.carleton.edu", "state": null, "inst_type": 1, 
+        "college_id": 10319, "adm_rate": 0.2277, "city": "Northfield", 
+        "name": "Carleton College", "undergrads": 2042, 
+        "in_state_tuition": 47736, "out_state_tuition": 47736, "alias": null, "zipcode": "55057-4001"}]
+
+#postgres command: SELECT name, state, city, ..., inst_type
+#                  FROM colleges
+#                  WHERE name = 'Carleton College'
+
+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
+
+SYNOPSIS: Get a list of all the colleges with specified name and their testing information
+
+QUERY (GET): /colleges/test/<college_id>
+
+RESPONSE: a dictionary for the specific college with keys 'name', 'sat_avg', 'act_avg', etc
+
+EXAMPLE: http:/collegesearch.com/colleges/test/10319
+
+[{"name": "Carleton College", "act_avg": null, 
+        "sat_m_mid": 710, "act_w_mid": 1408, " sat_w_mid": 700, 
+        "college_id": 10319, "sat_r_mid": 705, "sat_avg": 32, 
+        "act_en_mid": null, "act_m_mid": null, 
+        "url": "http://localhost:8080/college/Carleton%20College"}]
+
+#postgres command: SELECT name, sat_r_mid, sat_m_mid, ..., act_w_mid
+#                  FROM colleges
+#                  WHERE name = 'Carleton College'
+
+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
+
+SYNOPSIS: Get a list of all the colleges serving the specified demographic
+
+QUERY (GET): /colleges/demographic_special/<type-of-community>/
+
+RESPONSE: a list of dictionaries, each of which describes one college with keys 'name', 'city', and 'state'
+
+EXAMPLE: http:/collegesearch.com/demographic/historically-black
+
+
+[   {'name':'Howard University', 'city':'Washington', 'state':'DC'},
+    {'name':'Tuskegee University', 'city':'Tuskegee', 'state':'AL'} ...]
+
+#postgres command: SELECT name, city, state
+#                  FROM colleges
+#                  WHERE hist_black = 1
+
+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
+
+SYNOPSIS: Get a list of all the colleges with specified name and their demographic percentages
+
+QUERY (GET): /colleges/demographics/<college_id>
+
+RESPONSE: a dictionary for the specific college with keys 'name', 'pct_white', 'pct_black', etc.
+
+EXAMPLE: http:/collegesearch.com/colleges/demographics/10319
+
+[{"pct_asian": 0.0901, "college_id": 10319, 
+        "pct_white": 0.6499, "pct_two_or_more": 0.0455, 
+        "pct_black": 0.0387, "pct_nh_pi": 0.001, "pct_unkwn": 0.0171, 
+        "name": "Carleton College", "pct_international": 0.0926, 
+        "pct_ai_an": 0.0015, 
+        "url": "http://localhost:8080/colleges/demographics/Carleton%20College", 
+        "pct_hisp": 0.0637}]
+
+#postgres command: SELECT name, pct_white, pct_black, ..., pct_unkwn
+#                  FROM colleges
+#                  WHERE name = 'Carleton College'
+
+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
+
+SYNOPSIS: Get a list of all the colleges along with specified name and their financial information
+
+QUERY (GET): /colleges/debt/<college_id>
+
+RESPONSE: a dictionary for the specific college with keys 'name', 'median_debt', 'median_grad_debt', etc.
+
+EXAMPLE: http:/collegesearch.com/colleges/debt/10319
+
+[{"name": "Carleton College", 
+        "median_non_first_gen_debt": 16992.0, 
+        "median_withdraw_debt": 7933.0, 
+        "median_grad_debt": 17500.0, 
+        "college_id": 10319, 
+        " median_debt": 16000.0, 
+        "fafsa_apps": null, 
+        "median_female_debt": 15500.0, 
+        "median_first_gen_debt": 9533.0, 
+        "median_male_debt": 17083.0, 
+        "url": "http://localhost:8080/college/Carleton%20College"}]
+
+#postgres command: SELECT name, median_debt, median_grad_debt, ..., fafsa_apps
+#                  FROM colleges
+#                  WHERE name = 'Carleton College'
+
+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
+
+SYNOPSIS: Get a list of all colleges with specified name and their completion, transfer statistics information.
+
+QUERY (GET): /colleges/completion/<college_id>
+
+RESPONSE: a dictionary for the specific college with keys 'name', 'completion_fouryear', 'completion_lessfour', 'transfer_fouryear', 'transfer_less four', etc
+
+EXAMPLE: http:/collegesearch.com/colleges/completion/10319
+
+[{"name": "Carleton College", "transfer_lessfour": null, 
+        "transfer_fouryear": 0.0, 
+        "completion_lessfour": null, 
+        "college_id": 10319, 
+        "completion_fouryear": 0.9098, 
+        "url": "http://localhost:8080/college/Carleton%20College"}]
+
+#postgres command: SELECT name, completion_fouryear, completion_lessfour, ..., transfer_lessfour
+#                  FROM colleges
+#                  WHERE name = 'Carleton College'
+
+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
+
+SYNOPSIS: Get a list of all colleges with specified name and their gender statistics information.
+
+QUERY (GET): /colleges/gender/<college_id>
+
+RESPONSE: a dictionary for the specific college with keys 'name', 'pct_men', 'pct_women', etc
+
+EXAMPLE: http:/collegesearch.com/colleges/gender/10319
+
+[{"name": "Carleton College", 
+        "url": "http://localhost:8080/colleges/gender/Carleton%20College", 
+        "pct_women": 0.526, "pct_men": 0.474, "college_id": 10319}]
+
+#postgres command: SELECT name, pct_men, pct_women
+#                  FROM colleges
+#                  WHERE name = 'Carleton College'
+
+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
+
+SYNOPSIS: Get a list of all the colleges with the specified length of program
+
+QUERY (GET): /program-length/<number_of_years>/
+
+RESPONSE: a list of dictionaries, each of which describes one college with keys 'name', 'city', and 'state'
+
+EXAMPLE: http:/collegesearch.com/program-length/4/
+
+[{'name':'Carleton College', 'city':Northfield, 'state':'MN'},
+    {'name':'St. Olaf', 'city':'Northfield', 'state':MN},
+    {'name':'Wellesley College', 'city':'Wellesley', 'state':'MA'},
+    {'name':'Macalester College', 'city: St. Paul', 'state':'MN'}...]
+
+#postgres command: SELECT name, city, state
+#                  FROM colleges
+#                  WHERE inst_type = 3
+
+=============================================================================================================
+
+COPY colleges FROM '/Users/ritvik/Desktop/GitRepos/cs257assignments-AStengle/WebApp/colleges/data_examples/colleges.csv' DELIMITER ',' CSV HEADER;

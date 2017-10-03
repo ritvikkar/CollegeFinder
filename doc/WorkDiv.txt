@@ -1,0 +1,60 @@
+          Column           |       Type       |                       Modifiers                       
+---------------------------+------------------+-------------------------------------------------------
+ id                        | integer          | not null default nextval('colleges_id_seq'::regclass)
+ state_id                  | integer          | 
+ name                      | text             | SEARCH
+ city                      | text             | SEARCH
+ zipcode                   | text             | -
+ insturl                   | text             | -
+ alias                     | text             | -
+ in_state_tuition          | integer          | SLIDER 2
+ out_state_tuition         | integer          | SLIDER 2
+ adm_rate                  | double precision | SLIDER 2
+ inst_type                 | integer          | CHECKBOX
+ undergrads                | integer          | SLIDER 2
+
+ hist_black                | integer          | CHECKBOX
+ pred_black                | integer          | CHECKBOX
+ al_haw_nat                | integer          | CHECKBOX
+ tribal                    | integer          | CHECKBOX
+ aa_na_pi                  | integer          | CHECKBOX
+ hisp                      | integer          | CHECKBOX
+ na_nontribal              | integer          | CHECKBOX
+ men_only                  | integer          | CHECKBOX
+ women_only                | integer          | CHECKBOX
+
+ sat_r_mid                 | integer          | -
+ sat_m_mid                 | integer          | -
+ sat_w_mid                 | integer          | -
+ sat_avg                   | integer          | SLIDER 2
+ act_avg                   | integer          | SLIDER 2
+ act_en_mid                | integer          | -
+ act_m_mid                 | integer          | -
+ act_w_mid                 | integer          | -
+
+ pct_white                 | double precision | -
+ pct_black                 | double precision | -
+ pct_hisp                  | double precision | -
+ pct_asian                 | double precision | -
+ pct_ai_an                 | double precision | -
+ pct_nh_pi                 | double precision | -
+ pct_two_or_more           | double precision | -
+ pct_international         | double precision | -
+ pct_unkwn                 | double precision | -
+
+ median_debt               | double precision | SLIDER 2
+ median_grad_debt          | double precision | -
+ median_withdraw_debt      | double precision | -
+ median_female_debt        | double precision | -
+ median_male_debt          | double precision | -
+ median_first_gen_debt     | double precision | -
+ median_non_first_gen_debt | double precision | -
+ fafsa_apps                | integer          | -
+
+ completion_fouryear       | double precision | -
+ completion_lessfour       | double precision | -
+ transfer_fouryear         | double precision | -
+ transfer_lessfour         | double precision | -
+ 
+ pct_men                   | double precision | SLIDER 1
+ pct_women                 | double precision |   "

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="../static/colleges.css" />
+    <script type="text/javascript" src="{{ url_for('static', filename='colleges-config.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='colleges.js') }}"></script>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='jeff-favicon.ico') }}" />
+    <title>CS 257: Software Design, Spring 2017</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <style>
+    div.container {
+        width: 100%;
+        border: 1px gray;
+    }
+
+    header, footer {
+        padding: 1em;
+        color: white;
+        background-color: black;
+        clear: left;
+        text-align: center;
+    }
+
+    nav {
+        float: left;
+        max-width: 250px;
+        margin: 0;
+        padding: 1em;
+    }
+
+    nav ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    nav ul a {
+        text-decoration: none;
+    }
+
+    article {
+        margin-left: 170px;
+        border-left: 1px solid gray;
+        padding: 1em;
+        overflow-y: scroll;
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+    <header>
+       <h1><img src="../static/hat.png" width="50" height="25">College Search Webapp
+        </h1>
+    </header>
+
+    <h3> About This Web Application </h3>
+
+    <p> Created by Ritvik Kar, Anna Johnson, and Estelle Bayer for Software Design, Spring 2017. </p>
+    <p> This college finder uses 2014-2015 College Scorecard data, available for public use. </p>
+    <p> Use the sliders and check boxes provided to narrow your search criteria, or look up a college by name. </p>
+    <p> At most one specific demographic can be selected for any given search. <p>
+    <p> For more specific information about an individual college, click on its name to expand. </p>
+  </body>
+  <button id="back" onclick="window.history.back();">Back</button>
+
+
+
+  <footer>Copyright &copy; Esanri</footer>
+
+  </html>
